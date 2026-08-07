@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block title %}Appointment Detail{% endblock %}
+
+{% block main %}
+<div class="card">
+    <h1>{{ appt.patient_name }}</h1>
+    <p class="subtitle">{{ appt.appointment_datetime }} · <span class="status">{{ appt.status }}</span></p>
+
+    <p style="font-size:0.9rem; color: var(--color-ink-soft); margin-bottom: 0.5rem;">
+        Patient email: {{ appt.patient_email }}
+    </p>
+    <p style="font-size:0.9rem; color: var(--color-error); margin-bottom: 1.75rem;">
+        {% if appt.patient_allergies %}<strong>Allergies/notes:</strong> {{ appt.patient_allergies }}{% else %}No allergies on file.{% endif %}
+    </p>
+
+    {% if appt.status == 'completed' %}
+        <p class="subtitle"><strong>Notes:</strong> {{ appt.notes or "No notes recorded." }}</p>
+    {% elif appt.status == 'cancelled' %}
+        <p class="subtitle">This appointment was cancelled.</p>
+    {% else %}
+        <form action="/doctor/appointment/{{ appt.id }}/complete" method="post">
+            <label for="notes">Visit notes</label>
+            <input type="text" id="notes" name="notes" placeholder="e.g. Patient reports mild symptoms, prescribed rest">
+            <button type="submit">Mark as completed</button>
+        </form>
+        <form action="/doctor/appointment/{{ appt.id }}/cancel" method="post" class="mt-1">
+            <button type="submit" style="width:auto; padding: 0.5rem 1.2rem; background: var(--color-error);">Cancel appointment</button>
+        </form>
+    {% endif %}
+</div>
+
+<div class="card" style="margin-top: 1.5rem;">
+    <h1 style="font-size: 1.3rem;">Prescriptions</h1>
+
+    {% if prescriptions %}
+        <table class="data-table" style="margin-bottom: 1.5rem;">
+            <thead>
+                <tr>
+                    <th>Medication</th>
+                    <th>Dosage</th>
+                    <th>Instructions</th>
+                    <th>Issued</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rx in prescriptions %}
+                <tr>
+                    <td>{{ rx.medication }}</td>
+                    <td>{{ rx.dosage }}</td>
+                    <td class="muted">{{ rx.instructions or "—" }}</td>
+                    <td class="muted">{{ rx.issued_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="subtitle">No prescriptions issued yet.</p>
+    {% endif %}
+
+    <form action="/doctor/appointment/{{ appt.id }}/prescribe" method="post">
+        <label for="medication">Medication</label>
+        <input type="text" id="medication" name="medication" required>
+
+        <label for="dosage">Dosage</label>
+        <input type="text" id="dosage" name="dosage" placeholder="e.g. 500mg twice daily" required>
+
+        <label for="instructions">Instructions (optional)</label>
+        <input type="text" id="instructions" name="instructions" placeholder="e.g. Take with food">
+
+        <button type="submit">Add prescription</button>
+    </form>
+</div>
+{% endblock %}

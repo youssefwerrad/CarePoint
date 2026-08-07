@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}Your Appointments{% endblock %}
+
+{% block main %}
+<div class="card">
+    <h1>Your appointments</h1>
+    <p class="subtitle">Upcoming and past visits. · <a href="/patient/profile">Edit your profile</a></p>
+
+    {% if appointments %}
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Doctor</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appt in appointments %}
+                <tr>
+                    <td>{{ appt.appointment_datetime }}</td>
+                    <td>Dr. {{ appt.provider_name }} <span class="muted">({{ appt.specialty }})</span></td>
+                    <td class="status">{{ appt.status }}</td>
+                    <td><a href="/patient/appointment/{{ appt.id }}">View</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="subtitle">You have no appointments yet.</p>
+    {% endif %}
+
+    <a class="btn btn-inline mt-1" href="/patient/book">Book an appointment</a>
+</div>
+{% endblock %}

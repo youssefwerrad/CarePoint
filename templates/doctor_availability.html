@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}Manage Availability{% endblock %}
+
+{% block main %}
+<div class="card">
+    <h1>Your weekly availability</h1>
+    <p class="subtitle">Set the hours patients can book with you.</p>
+
+    {% if slots %}
+        <table class="data-table" style="margin-bottom: 1.5rem;">
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for slot in slots %}
+                <tr>
+                    <td>{{ day_names[slot.day_of_week] }}</td>
+                    <td>{{ slot.start_time }}</td>
+                    <td>{{ slot.end_time }}</td>
+                    <td>
+                        <form action="/doctor/availability/{{ slot.id }}/delete" method="post" style="margin:0;">
+                            <button type="submit" style="width:auto; padding: 0.3rem 0.7rem; font-size: 0.8rem; background: var(--color-error);">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="subtitle">No availability set yet — patients won't be able to book with you.</p>
+    {% endif %}
+
+    <form action="/doctor/availability" method="post">
+        <label for="day_of_week">Day</label>
+        <select id="day_of_week" name="day_of_week" required>
+            {% for name in day_names %}
+                <option value="{{ loop.index0 }}">{{ name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="start_time">Start time</label>
+        <input type="time" id="start_time" name="start_time" required>
+
+        <label for="end_time">End time</label>
+        <input type="time" id="end_time" name="end_time" required>
+
+        <button type="submit" class="mt-1">Add availability</button>
+    </form>
+</div>
+{% endblock %}

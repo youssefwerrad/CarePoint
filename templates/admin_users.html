@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}Manage Users{% endblock %}
+
+{% block container_class %}container-wide{% endblock %}
+
+{% block main %}
+<div class="card">
+    <h1>All users</h1>
+    <p class="subtitle"><a href="/admin/dashboard">Back to dashboard</a></p>
+
+    <label for="user-search">Search by name or email</label>
+    <input type="text" id="user-search" placeholder="e.g. alice or @test.com" autocomplete="off">
+
+    <table class="data-table">
+        <thead>
+            <tr><th>Name</th><th>Email</th><th>Role</th></tr>
+        </thead>
+        <tbody id="users-tbody">
+            {% for user in users %}
+            <tr>
+                <td>{{ user.name }}</td>
+                <td class="muted">{{ user.email }}</td>
+                <td class="status">{{ user.role }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script src="/static/search.js"></script>
+{% endblock %}

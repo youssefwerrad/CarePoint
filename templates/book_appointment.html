@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}Book Appointment{% endblock %}
+
+{% block main %}
+<div class="card">
+    <h1>Book an appointment</h1>
+    <p class="subtitle">Choose a doctor, date, and an available time.</p>
+
+    {% if doctors %}
+    <form action="/patient/book" method="post">
+        <label for="doctor-search">Search doctors by name or specialty</label>
+        <input type="text" id="doctor-search" placeholder="e.g. cardiology" autocomplete="off">
+
+        <label for="provider_id">Doctor</label>
+        <select id="provider_id" name="provider_id" required>
+            <option value="" disabled selected>Select a doctor</option>
+            {% for doctor in doctors %}
+                <option value="{{ doctor.id }}">Dr. {{ doctor.name }} — {{ doctor.specialty or "General" }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" required>
+
+        <label for="time">Available times</label>
+        <select id="time" name="time" required disabled>
+        </select>
+        <p id="slot-status" class="subtitle" style="margin: -0.6rem 0 1.1rem; font-size: 0.82rem;"></p>
+
+        <button type="submit" class="mt-1">Book appointment</button>
+    </form>
+    {% else %}
+        <p class="subtitle">No doctors are registered yet. Please check back later.</p>
+    {% endif %}
+</div>
+
+<script src="/static/booking.js"></script>
+{% endblock %}

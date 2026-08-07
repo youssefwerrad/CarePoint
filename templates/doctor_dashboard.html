@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}Weekly Schedule{% endblock %}
+
+{% block container_class %}container-wide{% endblock %}
+
+{% block main %}
+<div class="card">
+    <h1>This week's schedule</h1>
+    <p class="subtitle">{{ week_start.strftime('%b %d') }} – {{ week_end.strftime('%b %d, %Y') }} · <a href="/doctor/history">View completed appointments</a> · <a href="/doctor/availability">Manage availability</a></p>
+
+    <div class="calendar-grid">
+        {% for day in days %}
+        <div class="calendar-day {% if day.is_today %}is-today{% endif %}">
+            <div class="calendar-day-label">{{ day.label }} {{ day.date.day }}</div>
+
+            {% if day.appointments %}
+                {% for appt in day.appointments %}
+                <div class="calendar-appt">
+                    <a href="/doctor/appointment/{{ appt.id }}">
+                        <span class="calendar-appt-time">{{ appt.appointment_datetime.split(" ")[1] }}</span>
+                        {{ appt.patient_name }}
+                    </a>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="calendar-empty">No appointments</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

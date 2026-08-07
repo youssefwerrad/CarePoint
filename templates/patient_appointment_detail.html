@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}Appointment Detail{% endblock %}
+
+{% block main %}
+<div class="card">
+    <h1>Dr. {{ appt.provider_name }}</h1>
+    <p class="subtitle">{{ appt.specialty or "General" }} · {{ appt.appointment_datetime }} · <span class="status">{{ appt.status }}</span></p>
+
+    {% if appt.notes %}
+        <p class="subtitle"><strong>Visit notes:</strong> {{ appt.notes }}</p>
+    {% endif %}
+
+    {% if appt.status == 'scheduled' %}
+        <form action="/patient/appointment/{{ appt.id }}/cancel" method="post" class="mt-1">
+            <button type="submit" style="width:auto; padding: 0.5rem 1.2rem; background: var(--color-error);">Cancel appointment</button>
+        </form>
+    {% endif %}
+</div>
+
+<div class="card" style="margin-top: 1.5rem;">
+    <h1 style="font-size: 1.3rem;">Prescriptions</h1>
+
+    {% if prescriptions %}
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Medication</th>
+                    <th>Dosage</th>
+                    <th>Instructions</th>
+                    <th>Issued</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rx in prescriptions %}
+                <tr>
+                    <td>{{ rx.medication }}</td>
+                    <td>{{ rx.dosage }}</td>
+                    <td class="muted">{{ rx.instructions or "—" }}</td>
+                    <td class="muted">{{ rx.issued_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="subtitle">No prescriptions issued for this visit.</p>
+    {% endif %}
+</div>
+{% endblock %}

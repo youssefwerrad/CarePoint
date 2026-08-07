@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block title %}Error{% endblock %}
+
+{% block main %}
+<div class="card apology-card">
+    <p class="apology-code">{{ code }}</p>
+    <h1>{{ message }}</h1>
+    <p class="subtitle">Something needs your attention before you can continue.</p>
+    <a class="btn btn-inline" href="/">Back to CarePoint</a>
+</div>
+{% endblock %}

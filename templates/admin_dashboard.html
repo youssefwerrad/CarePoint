@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block container_class %}container-wide{% endblock %}
+
+{% block main %}
+<div class="card">
+    <h1>System overview</h1>
+    <p class="subtitle">{{ week_start.strftime('%b %d') }} – {{ week_end.strftime('%b %d, %Y') }} · <a href="/admin/users">Manage users</a></p>
+
+    <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem;">
+        <div class="card" style="padding: 1rem;">
+            <div class="muted">Patients</div>
+            <div style="font-family: var(--font-display); font-size: 1.8rem;">{{ total_patients }}</div>
+        </div>
+        <div class="card" style="padding: 1rem;">
+            <div class="muted">Doctors</div>
+            <div style="font-family: var(--font-display); font-size: 1.8rem;">{{ total_doctors }}</div>
+        </div>
+        <div class="card" style="padding: 1rem;">
+            <div class="muted">Appointments this week</div>
+            <div style="font-family: var(--font-display); font-size: 1.8rem;">{{ this_week_count }}</div>
+        </div>
+        <div class="card" style="padding: 1rem;">
+            <div class="muted">Cancellation rate</div>
+            <div style="font-family: var(--font-display); font-size: 1.8rem;">{{ cancellation_rate }}%</div>
+        </div>
+    </div>
+
+    <h1 style="font-size: 1.2rem;">Appointments by status</h1>
+    <table class="data-table" style="margin-bottom: 2rem;">
+        <thead>
+            <tr><th>Status</th><th>Count</th></tr>
+        </thead>
+        <tbody>
+            <tr><td class="status">scheduled</td><td>{{ status_map.get("scheduled", 0) }}</td></tr>
+            <tr><td class="status">completed</td><td>{{ status_map.get("completed", 0) }}</td></tr>
+            <tr><td class="status">cancelled</td><td>{{ status_map.get("cancelled", 0) }}</td></tr>
+        </tbody>
+    </table>
+
+    <h1 style="font-size: 1.2rem;">Busiest doctors</h1>
+    {% if top_doctors %}
+    <table class="data-table">
+        <thead>
+            <tr><th>Doctor</th><th>Appointments</th></tr>
+        </thead>
+        <tbody>
+            {% for doc in top_doctors %}
+            <tr><td>Dr. {{ doc.name }}</td><td>{{ doc.appointment_count }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="subtitle">No appointment data yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

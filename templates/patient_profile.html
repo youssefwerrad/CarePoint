@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}Your Profile{% endblock %}
+
+{% block main %}
+<div class="card">
+    <h1>Your profile</h1>
+    <p class="subtitle">This information is visible to doctors during your visits.</p>
+
+    <form action="/patient/profile" method="post">
+        <label for="date_of_birth">Date of birth</label>
+        <input type="date" id="date_of_birth" name="date_of_birth" value="{{ patient.date_of_birth or '' }}">
+
+        <label for="phone">Phone</label>
+        <input type="text" id="phone" name="phone" value="{{ patient.phone or '' }}">
+
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address" value="{{ patient.address or '' }}">
+
+        <label for="allergies">Allergies / medical notes</label>
+        <input type="text" id="allergies" name="allergies" value="{{ patient.allergies or '' }}" placeholder="e.g. Penicillin allergy, asthma">
+
+        <button type="submit">Save profile</button>
+    </form>
+</div>
+{% endblock %}

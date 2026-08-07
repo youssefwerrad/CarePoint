@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}Completed Appointments{% endblock %}
+
+{% block container_class %}container-wide{% endblock %}
+
+{% block main %}
+<div class="card">
+    <h1>Completed appointments</h1>
+    <p class="subtitle">Your visit history.</p>
+
+    {% if appointments %}
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Patient</th>
+                    <th>Notes</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appt in appointments %}
+                <tr>
+                    <td>{{ appt.appointment_datetime }}</td>
+                    <td>{{ appt.patient_name }}</td>
+                    <td class="muted">{{ appt.notes or "—" }}</td>
+                    <td><a href="/doctor/appointment/{{ appt.id }}">View</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="subtitle">No completed appointments yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

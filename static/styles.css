@@ -1,0 +1,265 @@
+/* ---------- Design tokens ---------- */
+:root {
+  --color-bg: #EEF5F5;
+  --color-surface: #FFFFFF;
+  --color-ink: #1C2B33;
+  --color-ink-soft: #55666D;
+  --color-accent: #7A9E8E;
+  --color-accent-dark: #5F8072;
+  --color-nav: #A9CFC0;
+  --color-error: #D97B6C;
+  --color-border: #DCE6E5;
+
+  --font-display: "Source Serif 4", Georgia, serif;
+  --font-body: "Inter", -apple-system, sans-serif;
+
+  --radius: 6px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+a {
+  color: var(--color-accent-dark);
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+/* ---------- Nav ---------- */
+.nav {
+  background: var(--color-nav);
+  color: var(--color-ink);
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: 0.02em;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.nav-links a {
+  color: var(--color-ink);
+  text-decoration: none;
+  margin-left: 1.25rem;
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+
+.nav-links a:hover { opacity: 1; }
+
+/* ---------- Layout ---------- */
+.container {
+  max-width: 480px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+.container-wide {
+  max-width: 960px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+.flash {
+  background: var(--color-accent);
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+
+/* ---------- Card: signature left tab element ---------- */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-accent);
+  border-radius: var(--radius);
+  padding: 2rem;
+}
+
+.card h1 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  margin: 0 0 0.3rem;
+}
+
+.card .subtitle {
+  color: var(--color-ink-soft);
+  font-size: 0.9rem;
+  margin: 0 0 1.75rem;
+}
+
+/* ---------- Forms ---------- */
+label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  color: var(--color-ink-soft);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 1.1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background: var(--color-bg);
+}
+
+input:focus, select:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+button, .btn {
+  width: 100%;
+  padding: 0.7rem;
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+button:hover, .btn:hover { background: var(--color-accent-dark); }
+
+.mt-1 { margin-top: 0.75rem; }
+
+.btn-inline {
+  display: inline-block;
+  width: auto;
+  padding: 0.6rem 1.5rem;
+  text-decoration: none;
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 1.25rem;
+  font-size: 0.88rem;
+  color: var(--color-ink-soft);
+}
+
+.form-footer a { color: var(--color-accent-dark); }
+
+/* ---------- Weekly calendar ---------- */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(120px, 1fr));
+  gap: 0.75rem;
+  overflow-x: auto;
+}
+
+.calendar-day {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  min-height: 140px;
+}
+
+.calendar-day.is-today {
+  border-color: var(--color-accent);
+  border-width: 2px;
+}
+
+.calendar-day-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-ink-soft);
+  margin-bottom: 0.5rem;
+}
+
+.calendar-day.is-today .calendar-day-label {
+  color: var(--color-accent-dark);
+}
+
+.calendar-appt {
+  background: var(--color-surface);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 4px;
+  padding: 0.4rem 0.5rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.82rem;
+}
+
+.calendar-appt-time {
+  font-weight: 600;
+  display: block;
+}
+
+.calendar-appt a {
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.calendar-empty {
+  color: var(--color-ink-soft);
+  font-size: 0.78rem;
+}
+
+/* ---------- Data tables ---------- */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th {
+  text-align: left;
+  padding: 0.5rem 0.25rem;
+  font-size: 0.8rem;
+  color: var(--color-ink-soft);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.data-table td {
+  padding: 0.6rem 0.25rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.data-table .status {
+  text-transform: capitalize;
+}
+
+.data-table .muted {
+  color: var(--color-ink-soft);
+  font-size: 0.85rem;
+}
+
+/* ---------- Apology page ---------- */
+.apology-card {
+  text-align: center;
+  border-left-color: var(--color-error);
+}
+
+.apology-code {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  color: var(--color-error);
+  margin: 0;
+}
