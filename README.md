@@ -1,10 +1,10 @@
-# MediTrack
+# CarePoint
 
-A clinic management system built with Flask, SQLite, and vanilla JavaScript. MediTrack lets patients book appointments with real-time availability checking, lets doctors manage their schedule and issue prescriptions, and gives admins a system-wide view of clinic activity.
+A clinic management system built with Flask, SQLite, and vanilla JavaScript. CarePoint lets patients book appointments with real-time availability checking, lets doctors manage their schedule and issue prescriptions, and gives admins a system-wide view of clinic activity.
 
 ## Why I built this
 
-Most of my earlier projects (Dealer Rate, AssetOS) were CRUD-heavy — good practice for auth and database design, but not much beyond that. MediTrack was an exercise in modeling a genuinely relational problem: overlapping schedules, role-based permissions across three distinct user types, and data that different roles are allowed to see in different amounts (a patient sees their own prescriptions; a doctor sees a patient's allergies but not their address; an admin sees aggregate stats but not individual medical notes).
+Most of my earlier projects (Dealer Rate, AssetOS) were CRUD-heavy — good practice for auth and database design, but not much beyond that. CarePoint was an exercise in modeling a genuinely relational problem: overlapping schedules, role-based permissions across three distinct user types, and data that different roles are allowed to see in different amounts (a patient sees their own prescriptions; a doctor sees a patient's allergies but not their address; an admin sees aggregate stats but not individual medical notes).
 
 ## Features
 
