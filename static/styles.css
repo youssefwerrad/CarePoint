@@ -70,7 +70,7 @@ a:hover {
 }
 
 .container-wide {
-  max-width: 960px;
+  max-width: 1100px;
   margin: 3rem auto;
   padding: 0 1.5rem;
 }
@@ -173,6 +173,7 @@ button:hover, .btn:hover { background: var(--color-accent-dark); }
   grid-template-columns: repeat(7, minmax(150px, 1fr));
   gap: 0.9rem;
   overflow-x: auto;
+  min-width: 0;
 }
 
 .calendar-day {
