@@ -13,13 +13,13 @@
 
     {% if appt.status == 'scheduled' %}
         <form action="/patient/appointment/{{ appt.id }}/cancel" method="post" class="mt-1">
-            <button type="submit" style="width:auto; padding: 0.5rem 1.2rem; background: var(--color-error);">Cancel appointment</button>
+            <button type="submit" class="btn-inline btn-danger">Cancel appointment</button>
         </form>
     {% endif %}
 </div>
 
-<div class="card" style="margin-top: 1.5rem;">
-    <h1 style="font-size: 1.3rem;">Prescriptions</h1>
+<div class="card section-card">
+    <h2>Prescriptions</h2>
 
     {% if prescriptions %}
         <table class="data-table">

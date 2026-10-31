@@ -77,6 +77,10 @@ flask run
 
 Then register a doctor and a patient account through the UI. The doctor will need to set availability hours (`/doctor/availability`) before patients can book with them.
 
+## UI refresh
+
+The app has been refreshed with a more modern clinical dashboard style: brighter gradients, soft card surfaces, a sticky navigation bar, responsive layouts, and clearer status treatments.
+
 ## What I'd add next
 
 - A real notification system (currently just a login-time flash message)

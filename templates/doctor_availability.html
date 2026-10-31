@@ -8,7 +8,7 @@
     <p class="subtitle">Set the hours patients can book with you.</p>
 
     {% if slots %}
-        <table class="data-table" style="margin-bottom: 1.5rem;">
+        <table class="data-table">
             <thead>
                 <tr>
                     <th>Day</th>
@@ -24,8 +24,8 @@
                     <td>{{ slot.start_time }}</td>
                     <td>{{ slot.end_time }}</td>
                     <td>
-                        <form action="/doctor/availability/{{ slot.id }}/delete" method="post" style="margin:0;">
-                            <button type="submit" style="width:auto; padding: 0.3rem 0.7rem; font-size: 0.8rem; background: var(--color-error);">Remove</button>
+                        <form action="/doctor/availability/{{ slot.id }}/delete" method="post">
+                            <button type="submit" class="btn-inline btn-danger">Remove</button>
                         </form>
                     </td>
                 </tr>

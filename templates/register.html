@@ -3,33 +3,51 @@
 {% block title %}Register{% endblock %}
 
 {% block main %}
-<div class="card">
-    <h1>Create your account</h1>
-    <p class="subtitle">Register as a patient or a doctor.</p>
+<div class="auth-shell">
+    <div class="auth-hero">
+        <p class="eyebrow">Join CarePoint</p>
+        <h1>Create your account</h1>
+        <p>Book appointments, manage schedules, and stay connected to your care team in one place.</p>
+    </div>
 
-    <form action="/register" method="post">
-        <label for="name">Full name</label>
-        <input type="text" id="name" name="name" required>
+    <div class="card auth-card">
+        <h2>Register</h2>
+        <p class="subtitle">Choose a patient or doctor profile.</p>
 
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
+        <form action="/register" method="post" class="register-form">
+            <div class="field-group">
+                <label for="name">Full name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
 
-        <label for="role">I am registering as a</label>
-        <select id="role" name="role" required>
-            <option value="" disabled selected>Select one</option>
-            <option value="patient">Patient</option>
-            <option value="doctor">Doctor</option>
-        </select>
+            <div class="field-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+            <div class="field-group full-width">
+                <label for="role">I am registering as a</label>
+                <select id="role" name="role" required>
+                    <option value="" disabled selected>Select one</option>
+                    <option value="patient">Patient</option>
+                    <option value="doctor">Doctor</option>
+                </select>
+            </div>
 
-        <label for="confirmation">Confirm password</label>
-        <input type="password" id="confirmation" name="confirmation" required>
+            <div class="field-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
 
-        <button type="submit">Register</button>
-    </form>
+            <div class="field-group">
+                <label for="confirmation">Confirm password</label>
+                <input type="password" id="confirmation" name="confirmation" required>
+            </div>
 
-    <p class="form-footer">Already have an account? <a href="/login">Log in</a></p>
+            <button type="submit">Register</button>
+        </form>
+
+        <p class="form-footer">Already have an account? <a href="/login">Log in</a></p>
+    </div>
 </div>
 {% endblock %}
