@@ -22,7 +22,7 @@ if email and password:
     if not exists:
         conn.execute(
             "INSERT INTO users (name, email, hash, role) VALUES (?, ?, ?, 'admin')",
-            (name := os.getenv("ADMIN_NAME", "Admin"), email, generate_password_hash(password)),
+            (os.getenv("ADMIN_NAME", "Admin"), email, generate_password_hash(password)),
         )
         print(f"Admin created: {email}")
 conn.commit()
