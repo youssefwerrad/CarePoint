@@ -11,39 +11,78 @@
 </head>
 <body>
 
-    <nav class="nav">
-        <div class="nav-inner">
+    {% if session.user_id %}
+    <div class="app-shell">
+        <aside class="sidebar" aria-label="Main navigation">
             <a class="nav-brand" href="/">
                 <span class="brand-mark" aria-hidden="true">+</span>
                 CarePoint
             </a>
-            {% if session.user_id %}
-            <div class="nav-menu">
-                {% if session.role == "patient" %}
-                    <a href="/patient/dashboard">Appointments</a>
-                    <a href="/patient/book">Book a visit</a>
-                    <a href="/patient/profile">My profile</a>
-                {% elif session.role == "doctor" %}
-                    <a href="/doctor/dashboard">Schedule</a>
-                    <a href="/doctor/history">Visit history</a>
-                    <a href="/doctor/availability">Availability</a>
-                {% elif session.role == "admin" %}
-                    <a href="/admin/dashboard">Overview</a>
-                    <a href="/admin/users">Users</a>
-                {% endif %}
-            </div>
+
+            {% if session.role == "patient" %}
+            <p class="sidebar-label">YOUR CARE</p>
+            <nav class="sidebar-nav" aria-label="Patient">
+                <a href="/patient/dashboard" {% if request.path == "/patient/dashboard" %}aria-current="page"{% endif %}>
+                    <span class="sidebar-icon" aria-hidden="true">▦</span> Appointments
+                </a>
+                <a href="/patient/book" {% if request.path == "/patient/book" %}aria-current="page"{% endif %}>
+                    <span class="sidebar-icon" aria-hidden="true">＋</span> Book a visit
+                </a>
+                <a href="/patient/profile" {% if request.path == "/patient/profile" %}aria-current="page"{% endif %}>
+                    <span class="sidebar-icon" aria-hidden="true">○</span> My profile
+                </a>
+            </nav>
+            {% elif session.role == "doctor" %}
+            <p class="sidebar-label">WORKSPACE</p>
+            <nav class="sidebar-nav" aria-label="Doctor">
+                <a href="/doctor/dashboard" {% if request.path == "/doctor/dashboard" %}aria-current="page"{% endif %}>
+                    <span class="sidebar-icon" aria-hidden="true">▦</span> Overview
+                </a>
+                <a href="/doctor/history" {% if request.path == "/doctor/history" %}aria-current="page"{% endif %}>
+                    <span class="sidebar-icon" aria-hidden="true">◷</span> Visit history
+                </a>
+                <a href="/doctor/availability" {% if request.path == "/doctor/availability" %}aria-current="page"{% endif %}>
+                    <span class="sidebar-icon" aria-hidden="true">▤</span> Availability
+                </a>
+            </nav>
+            {% elif session.role == "admin" %}
+            <p class="sidebar-label">OPERATIONS</p>
+            <nav class="sidebar-nav" aria-label="Administrator">
+                <a href="/admin/dashboard" {% if request.path == "/admin/dashboard" %}aria-current="page"{% endif %}>
+                    <span class="sidebar-icon" aria-hidden="true">▦</span> Overview
+                </a>
+                <a href="/admin/users" {% if request.path == "/admin/users" %}aria-current="page"{% endif %}>
+                    <span class="sidebar-icon" aria-hidden="true">○</span> Users
+                </a>
+            </nav>
             {% endif %}
-            <div class="nav-links">
-                {% if session.user_id %}
-                    <span class="user-chip">{{ session.name }}</span>
-                    <a href="/logout">Log out</a>
-                {% else %}
-                    <a href="/login">Log in</a>
-                    <a href="/register">Register</a>
-                {% endif %}
+
+            <div class="sidebar-account">
+                <span class="sidebar-avatar" aria-hidden="true">{{ session.name[:1]|upper }}</span>
+                <span class="sidebar-user">
+                    <strong>{{ session.name }}</strong>
+                    <span>{{ session.role|capitalize }}</span>
+                </span>
+                <a href="/logout" class="sidebar-logout" aria-label="Log out">↗</a>
             </div>
-        </div>
-    </nav>
+        </aside>
+
+        <div class="app-main">
+            <header class="topbar">
+                <span class="topbar-context">CAREPOINT <span aria-hidden="true">/</span> {{ session.role|capitalize }} workspace</span>
+            </header>
+    {% else %}
+    <header class="guest-nav">
+        <a class="nav-brand" href="/">
+            <span class="brand-mark" aria-hidden="true">+</span>
+            CarePoint
+        </a>
+        <nav class="nav-links" aria-label="Account">
+            <a href="/login">Log in</a>
+            <a href="/register">Register</a>
+        </nav>
+    </header>
+    {% endif %}
 
     <main class="{% block container_class %}container{% endblock %}">
         {% with messages = get_flashed_messages() %}
@@ -53,9 +92,12 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-
         {% block main %}{% endblock %}
     </main>
 
+    {% if session.user_id %}
+        </div>
+    </div>
+    {% endif %}
 </body>
 </html>

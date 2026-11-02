@@ -504,8 +504,20 @@ def doctor_dashboard():
             "appointments": day_appointments,
         })
 
-    return render_template("doctor_dashboard.html", days=days,
-                            week_start=week_start, week_end=week_end)
+    today_appointment_count = sum(
+        row["appointment_datetime"].startswith(today.isoformat()) for row in rows
+    )
+    active_days_count = sum(bool(day["appointments"]) for day in days)
+
+    return render_template(
+        "doctor_dashboard.html",
+        days=days,
+        week_start=week_start,
+        week_end=week_end,
+        weekly_appointment_count=len(rows),
+        today_appointment_count=today_appointment_count,
+        active_days_count=active_days_count,
+    )
 
 
 @app.route("/doctor/history")

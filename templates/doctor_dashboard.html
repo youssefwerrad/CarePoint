@@ -5,14 +5,54 @@
 {% block container_class %}container-wide{% endblock %}
 
 {% block main %}
-<div class="card">
-    <h1>This week's schedule</h1>
-    <p class="subtitle">{{ week_start.strftime('%b %d') }} – {{ week_end.strftime('%b %d, %Y') }} · <a href="/doctor/history">View completed appointments</a> · <a href="/doctor/availability">Manage availability</a></p>
+<section class="dashboard-intro">
+    <div>
+        <p class="eyebrow">DOCTOR DASHBOARD</p>
+        <h1>Welcome back, Dr. {{ session.name }}</h1>
+        <p class="subtitle">{{ week_start.strftime('%b %d') }} – {{ week_end.strftime('%b %d, %Y') }} · Your weekly clinic overview.</p>
+    </div>
+    <div class="dashboard-actions">
+        <a href="/doctor/history" class="btn btn-inline btn-secondary">Visit history</a>
+        <a href="/doctor/availability" class="btn btn-inline">Manage availability</a>
+    </div>
+</section>
 
+<section class="dashboard-stats" aria-label="Weekly appointment summary">
+    <article class="dashboard-stat">
+        <span class="dashboard-stat-icon" aria-hidden="true">＋</span>
+        <span class="dashboard-stat-label">Appointments today</span>
+        <strong class="dashboard-stat-value">{{ today_appointment_count }}</strong>
+        <span class="dashboard-stat-note">Scheduled for today</span>
+    </article>
+    <article class="dashboard-stat">
+        <span class="dashboard-stat-icon dashboard-stat-icon-blue" aria-hidden="true">▦</span>
+        <span class="dashboard-stat-label">This week</span>
+        <strong class="dashboard-stat-value">{{ weekly_appointment_count }}</strong>
+        <span class="dashboard-stat-note">Scheduled appointments</span>
+    </article>
+    <article class="dashboard-stat">
+        <span class="dashboard-stat-icon dashboard-stat-icon-gold" aria-hidden="true">◷</span>
+        <span class="dashboard-stat-label">Active days</span>
+        <strong class="dashboard-stat-value">{{ active_days_count }}<span class="dashboard-stat-total"> / 7</span></strong>
+        <span class="dashboard-stat-note">Days with appointments</span>
+    </article>
+</section>
+
+<section class="card schedule-panel">
+    <div class="schedule-heading">
+        <div>
+            <h2>This week's schedule</h2>
+            <p class="subtitle">Your appointments from Monday through Sunday.</p>
+        </div>
+        <span class="schedule-date">{{ week_start.strftime('%b %d') }} – {{ week_end.strftime('%b %d') }}</span>
+    </div>
     <div class="calendar-grid">
         {% for day in days %}
         <div class="calendar-day {% if day.is_today %}is-today{% endif %}">
-            <div class="calendar-day-label">{{ day.label }} {{ day.date.day }}</div>
+            <div class="calendar-day-label">
+                <span>{{ day.label }}</span>
+                <strong>{{ day.date.day }}</strong>
+            </div>
 
             {% if day.appointments %}
                 {% for appt in day.appointments %}
@@ -29,5 +69,5 @@
         </div>
         {% endfor %}
     </div>
-</div>
+</section>
 {% endblock %}

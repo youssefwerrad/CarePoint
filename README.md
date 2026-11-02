@@ -79,7 +79,7 @@ Then register a doctor and a patient account through the UI. The doctor will nee
 
 ## UI refresh
 
-The app has been refreshed with a more modern clinical dashboard style: brighter gradients, soft card surfaces, a sticky navigation bar, responsive layouts, and clearer status treatments.
+Authenticated pages use role-specific left navigation, with a responsive layout for smaller screens. The doctor dashboard highlights real appointment counts above the weekly schedule, while patient and admin links remain available in their own navigation.
 
 ## What I'd add next
 
